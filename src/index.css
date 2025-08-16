@@ -1,1 +1,24 @@
+@import url('https://api.fontshare.com/v2/css?f=satoshi@400,500,600,700&display=swap');
+/* Satoshi font - alternative CDN */
+
 @import "tailwindcss";
+
+@theme {
+    --font-satoshi: "Satoshi", sans-serif;
+}
+
+@layer utilities {
+
+    @keyframes up-down {
+        0%, 100% {
+            transform: translateY(0px);
+        }
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+
+    .animate-up-down {
+        animation: up-down 3s ease-in-out infinite;
+    }
+}
