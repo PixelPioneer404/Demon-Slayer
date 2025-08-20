@@ -20,6 +20,24 @@ function App() {
   const nextSectionRef = useRef(null)
   const heroRef = useRef(null)
   const firstArcRef = useRef(null)
+  
+  // Create refs for all arc sections (components)
+  const arcSectionRefs = [
+    useRef(null), // arcData[0] - Infinity Castle Arc
+    useRef(null), // arcData[1] - Hashira Training Arc  
+    useRef(null), // arcData[2] - Swordsmith Village Arc
+    useRef(null), // arcData[3] - Entertainment District Arc
+    useRef(null), // arcData[4] - Mugen Train Arc
+  ]
+
+  // Create refs for section elements (for triggering)
+  const sectionRefs = [
+    nextSectionRef, // First section (already exists)
+    useRef(null),   // Second section
+    useRef(null),   // Third section
+    useRef(null),   // Fourth section
+    useRef(null),   // Fifth section
+  ]
 
   const [muted, setMuted] = useState(true)
 
@@ -42,6 +60,7 @@ function App() {
     let heroScrollTrigger;
     let nextSectionScrollTrigger; //for opacity only
     let firstArcScrollTrigger; // for first arc animation
+    let arcFadeOutTriggers = []; // Array to store all arc fade-out animations
     let scrollTl;
 
     timer = setTimeout(() => {
@@ -102,20 +121,89 @@ function App() {
         })
       }
 
-      // First Arc animation
-      if (firstArcRef.current) {
-        firstArcScrollTrigger = gsap.from(firstArcRef.current, {
-          opacity: 0,
-          y: 50,
-          duration: 1,
-          ease: "power2.out",
+      // First Arc animation - Special first section with fade in
+      if (firstArcRef.current && sectionRefs[1].current) {
+        // Set initial state
+        gsap.set(firstArcRef.current, { opacity: 0, y: 50 })
+        
+        firstArcScrollTrigger = gsap.timeline({
           scrollTrigger: {
             trigger: firstArcRef.current,
-            start: "top 40%",
-            end: "top 10%",
-            toggleActions: "play none none reverse"
+            start: "top 80%",
+            endTrigger: sectionRefs[1].current,
+            end: "top 20%",
+            scrub: 1
           }
         })
+        .to(firstArcRef.current, {
+          opacity: 1,
+          y: 0,
+          duration: 0.3
+        })
+        .to(firstArcRef.current, {
+          opacity: 1,
+          duration: 0.4
+        })
+        .to(firstArcRef.current, {
+          opacity: 0,
+          duration: 0.3,
+          scale: 0.8
+        })
+      }
+
+      // General fade-out system for arc sections (skip index 0 as it's handled by firstArcRef)
+      for (let i = 1; i < arcSectionRefs.length; i++) {
+        const currentRef = arcSectionRefs[i]
+        const nextSectionRef = sectionRefs[i + 1]
+        
+        console.log(`Arc ${i}:`, {
+          currentRefExists: !!currentRef.current,
+          nextSectionRefExists: !!(nextSectionRef && nextSectionRef.current),
+          nextSectionIndex: i + 1
+        })
+        
+        if (currentRef.current) {
+          // Set initial visible state for components
+          gsap.set(currentRef.current, { opacity: 1 })
+          
+          // Create fade-out animation when next section comes into view (if there is a next section)
+          if (nextSectionRef && nextSectionRef.current) {
+            const fadeOutAnimation = gsap.to(currentRef.current, {
+              opacity: 0,
+              y: -100, // Add upward movement for more visible effect
+              scale: 0.8, // Add scale down effect
+              duration: 1,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: nextSectionRef.current,
+                start: "top 80%", // Start earlier for longer animation
+                end: "top 20%", // End later for longer animation
+                scrub: 1
+              }
+            })
+            
+            arcFadeOutTriggers.push(fadeOutAnimation)
+            console.log(`Created fade-out animation for arc ${i}`)
+          } else {
+            // For the last section, fade out based on scroll position
+            const fadeOutAnimation = gsap.to(currentRef.current, {
+              opacity: 0,
+              y: -100,
+              scale: 0.8,
+              duration: 1,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: sectionRefs[i].current,
+                start: "bottom 90%",
+                end: "bottom 60%",
+                scrub: 1
+              }
+            })
+            
+            arcFadeOutTriggers.push(fadeOutAnimation)
+            console.log(`Created last section fade-out animation for arc ${i}`)
+          }
+        }
       }
 
       // Logo and button fade out on scroll
@@ -171,6 +259,10 @@ function App() {
       if (firstArcScrollTrigger) {
         firstArcScrollTrigger.kill()
       }
+      // Clean up all arc fade-out animations
+      arcFadeOutTriggers.forEach(animation => {
+        if (animation) animation.kill()
+      })
       if (scrollTl) {
         scrollTl.kill()
       }
@@ -205,17 +297,17 @@ function App() {
       <section ref={nextSectionRef} className="relative w-screen h-screen z-11 bg-black">
         <ArcSection ref={firstArcRef} arcData={arcData[0]} />
       </section>
-      <section className="relative w-screen h-screen z-11 bg-black">
-        <ArcSection arcData={arcData[1]} />
+      <section ref={sectionRefs[1]} className="relative w-screen h-screen z-11 bg-black">
+        <ArcSection ref={arcSectionRefs[1]} arcData={arcData[1]} />
       </section>
-      <section className="relative w-screen h-screen z-11 bg-black">
-        <ArcSection arcData={arcData[2]} />
+      <section ref={sectionRefs[2]} className="relative w-screen h-screen z-11 bg-black">
+        <ArcSection ref={arcSectionRefs[2]} arcData={arcData[2]} />
       </section>
-      <section className="relative w-screen h-screen z-11 bg-black">
-        <ArcSection arcData={arcData[3]} />
+      <section ref={sectionRefs[3]} className="relative w-screen h-screen z-11 bg-black">
+        <ArcSection ref={arcSectionRefs[3]} arcData={arcData[3]} />
       </section>
-      <section className="relative w-screen h-screen z-11 bg-black">
-        <ArcSection arcData={arcData[4]} />
+      <section ref={sectionRefs[4]} className="relative w-screen h-screen z-11 bg-black">
+        <ArcSection ref={arcSectionRefs[4]} arcData={arcData[4]} />
       </section>
       
     </>
