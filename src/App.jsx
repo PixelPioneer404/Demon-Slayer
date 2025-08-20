@@ -4,7 +4,9 @@ import HeroFooter from './components/HeroFooter'
 import gsap from 'gsap'
 import { CustomEase } from "gsap/CustomEase"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { Volume2, VolumeOff } from 'lucide-react'
+import ArcSection from './components/ArcSection'
+import infinityCastelArcPoster from "/Infinity-castel-arc.jpg"
+import arcData from "./data/ArcData.json"
 gsap.registerPlugin(CustomEase, ScrollTrigger)
 
 
@@ -17,6 +19,7 @@ function App() {
   const buttonRef = useRef(null)
   const nextSectionRef = useRef(null)
   const heroRef = useRef(null)
+  const firstArcRef = useRef(null)
 
   const [muted, setMuted] = useState(true)
 
@@ -37,6 +40,8 @@ function App() {
     let timer;
     let splashTl;
     let heroScrollTrigger;
+    let nextSectionScrollTrigger; //for opacity only
+    let firstArcScrollTrigger; // for first arc animation
     let scrollTl;
 
     timer = setTimeout(() => {
@@ -82,6 +87,33 @@ function App() {
                 videoRef.current.play().catch(console.error)
               }
             }
+          }
+        })
+
+        nextSectionScrollTrigger = gsap.from(nextSectionRef.current, {
+          opacity: 0.2,
+          ease: "power1.inOut",
+          scrollTrigger: {
+            trigger: nextSectionRef.current,
+            start: "top bottom",
+            end: "top 40%",
+            scrub: 1
+          }
+        })
+      }
+
+      // First Arc animation
+      if (firstArcRef.current) {
+        firstArcScrollTrigger = gsap.from(firstArcRef.current, {
+          opacity: 0,
+          y: 50,
+          duration: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: firstArcRef.current,
+            start: "top 40%",
+            end: "top 10%",
+            toggleActions: "play none none reverse"
           }
         })
       }
@@ -133,6 +165,12 @@ function App() {
       if (heroScrollTrigger) {
         heroScrollTrigger.kill()
       }
+      if (nextSectionScrollTrigger) {
+        nextSectionScrollTrigger.kill()
+      }
+      if (firstArcScrollTrigger) {
+        firstArcScrollTrigger.kill()
+      }
       if (scrollTl) {
         scrollTl.kill()
       }
@@ -143,9 +181,9 @@ function App() {
 
   return (
     <>
-      <div className="relative">
+      <section className="relative">
         <Header />
-        <section ref={heroRef} className="w-screen h-screen flex justify-center items-center fixed z-10">
+        <div ref={heroRef} className="w-screen h-screen flex justify-center items-center fixed z-10">
           <div ref={splashRef} className="h-screen absolute inset-0 z-9999 bg-black origin-top w-screen"></div>
           <video ref={videoRef} src="/bg-video-hero.webm" className="w-full h-full flex-1 object-cover object-center" muted loop></video>
           <audio
@@ -158,13 +196,28 @@ function App() {
             <img ref={logoRef} src="/Infinity-castel-logo.png" alt="center-logo" className="w-115 h-110 object-fit object-center drop-shadow-2xl" />
             <button ref={buttonRef} className="px-5 py-3 rounded-full border-2 border-green-500 text-lg text-center text-white font-medium font-satoshi hover:bg-green-500 hover:border-white transition-colors duration-300 ease-in-out cursor-pointer">Watch the trailer</button>
           </div>
-          <HeroFooter muted={muted} toggleMute={toggleMute} />
-        </section>
-      </div>
+          <HeroFooter muted={muted} toggleMute={toggleMute} nextSection={nextSectionRef} />
+        </div>
+      </section>
+
       <section className="relative w-screen h-screen z-9 bg-black"></section>
-      <section ref={nextSectionRef} className="relative w-screen h-screen z-11 bg-black"></section>
-      <section className="relative w-screen h-screen z-11 bg-white"></section>
-      <section className="relative w-screen h-screen z-11 bg-red-600"></section>
+
+      <section ref={nextSectionRef} className="relative w-screen h-screen z-11 bg-black">
+        <ArcSection ref={firstArcRef} arcData={arcData[0]} />
+      </section>
+      <section className="relative w-screen h-screen z-11 bg-black">
+        <ArcSection arcData={arcData[1]} />
+      </section>
+      <section className="relative w-screen h-screen z-11 bg-black">
+        <ArcSection arcData={arcData[2]} />
+      </section>
+      <section className="relative w-screen h-screen z-11 bg-black">
+        <ArcSection arcData={arcData[3]} />
+      </section>
+      <section className="relative w-screen h-screen z-11 bg-black">
+        <ArcSection arcData={arcData[4]} />
+      </section>
+      
     </>
   )
 }

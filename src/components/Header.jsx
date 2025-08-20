@@ -1,10 +1,10 @@
-import { Menu } from 'lucide-react';
+import { ChartNoAxesGantt } from 'lucide-react';
 import React from 'react';
 
 const Header = () => {
     return (
         <div className="fixed top-0 left-0 w-full h-20 flex justify-between items-center px-8 z-999">
-            <Menu
+            <ChartNoAxesGantt
                 size={32}
                 color='white'
                 className="hover:scale-105 cursor-pointer tranition-all duration-300 ease-in-out"
