@@ -5,13 +5,15 @@ import gsap from 'gsap'
 import { CustomEase } from "gsap/CustomEase"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import ArcSection from './components/ArcSection'
-import infinityCastelArcPoster from "/Infinity-castel-arc.jpg"
 import arcData from "./data/ArcData.json"
+import { Routes, Route, Link, useLocation } from 'react-router-dom'
+import TrailerPage from './pages/TrailerPage'
 gsap.registerPlugin(CustomEase, ScrollTrigger)
 
 
 function App() {
-
+  const location = useLocation()
+  const [hasNavigated, setHasNavigated] = useState(false)
   const videoRef = useRef(null)
   const audioRef = useRef(null)
   const splashRef = useRef(null)
@@ -20,7 +22,7 @@ function App() {
   const nextSectionRef = useRef(null)
   const heroRef = useRef(null)
   const firstArcRef = useRef(null)
-  
+
   // Create refs for all arc sections (components)
   const arcSectionRefs = [
     useRef(null), // arcData[0] - Infinity Castle Arc
@@ -125,7 +127,7 @@ function App() {
       if (firstArcRef.current && sectionRefs[1].current) {
         // Set initial state
         gsap.set(firstArcRef.current, { opacity: 0, y: 50 })
-        
+
         firstArcScrollTrigger = gsap.timeline({
           scrollTrigger: {
             trigger: firstArcRef.current,
@@ -135,37 +137,37 @@ function App() {
             scrub: 1
           }
         })
-        .to(firstArcRef.current, {
-          opacity: 1,
-          y: 0,
-          duration: 0.3
-        })
-        .to(firstArcRef.current, {
-          opacity: 1,
-          duration: 0.4
-        })
-        .to(firstArcRef.current, {
-          opacity: 0,
-          duration: 0.3,
-          scale: 0.8
-        })
+          .to(firstArcRef.current, {
+            opacity: 1,
+            y: 0,
+            duration: 0.3
+          })
+          .to(firstArcRef.current, {
+            opacity: 1,
+            duration: 0.4
+          })
+          .to(firstArcRef.current, {
+            opacity: 0,
+            duration: 0.3,
+            scale: 0.8
+          })
       }
 
       // General fade-out system for arc sections (skip index 0 as it's handled by firstArcRef)
       for (let i = 1; i < arcSectionRefs.length; i++) {
         const currentRef = arcSectionRefs[i]
         const nextSectionRef = sectionRefs[i + 1]
-        
+
         console.log(`Arc ${i}:`, {
           currentRefExists: !!currentRef.current,
           nextSectionRefExists: !!(nextSectionRef && nextSectionRef.current),
           nextSectionIndex: i + 1
         })
-        
+
         if (currentRef.current) {
           // Set initial visible state for components
           gsap.set(currentRef.current, { opacity: 1 })
-          
+
           // Create fade-out animation when next section comes into view (if there is a next section)
           if (nextSectionRef && nextSectionRef.current) {
             const fadeOutAnimation = gsap.to(currentRef.current, {
@@ -181,7 +183,7 @@ function App() {
                 scrub: 1
               }
             })
-            
+
             arcFadeOutTriggers.push(fadeOutAnimation)
             console.log(`Created fade-out animation for arc ${i}`)
           } else {
@@ -199,7 +201,7 @@ function App() {
                 scrub: 1
               }
             })
-            
+
             arcFadeOutTriggers.push(fadeOutAnimation)
             console.log(`Created last section fade-out animation for arc ${i}`)
           }
@@ -271,46 +273,95 @@ function App() {
     }
   }, [])
 
-  return (
-    <>
-      <section className="relative">
-        <Header />
-        <div ref={heroRef} className="w-screen h-screen flex justify-center items-center fixed z-10">
-          <div ref={splashRef} className="h-screen absolute inset-0 z-9999 bg-black origin-top w-screen"></div>
-          <video ref={videoRef} src="/bg-video-hero.webm" className="w-full h-full flex-1 object-cover object-center" muted loop></video>
-          <audio
-            ref={audioRef}
-            src="/infinity-castel-ost.mp3"
-            loop
-            muted={muted}
-          />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center gap-10">
-            <img ref={logoRef} src="/Infinity-castel-logo.png" alt="center-logo" className="w-115 h-110 object-fit object-center drop-shadow-2xl" />
-            <button ref={buttonRef} className="px-5 py-3 rounded-full border-2 border-green-500 text-lg text-center text-white font-medium font-satoshi hover:bg-green-500 hover:border-white transition-colors duration-300 ease-in-out cursor-pointer">Watch the trailer</button>
-          </div>
-          <HeroFooter muted={muted} toggleMute={toggleMute} nextSection={nextSectionRef} />
-        </div>
-      </section>
-
-      <section className="relative w-screen h-screen z-9 bg-black"></section>
-
-      <section ref={nextSectionRef} className="relative w-screen h-screen z-11 bg-black">
-        <ArcSection ref={firstArcRef} arcData={arcData[0]} />
-      </section>
-      <section ref={sectionRefs[1]} className="relative w-screen h-screen z-11 bg-black">
-        <ArcSection ref={arcSectionRefs[1]} arcData={arcData[1]} />
-      </section>
-      <section ref={sectionRefs[2]} className="relative w-screen h-screen z-11 bg-black">
-        <ArcSection ref={arcSectionRefs[2]} arcData={arcData[2]} />
-      </section>
-      <section ref={sectionRefs[3]} className="relative w-screen h-screen z-11 bg-black">
-        <ArcSection ref={arcSectionRefs[3]} arcData={arcData[3]} />
-      </section>
-      <section ref={sectionRefs[4]} className="relative w-screen h-screen z-11 bg-black">
-        <ArcSection ref={arcSectionRefs[4]} arcData={arcData[4]} />
-      </section>
+  // Track navigation and reset animations when navigating back to home page
+  useEffect(() => {
+    if (location.pathname !== '/') {
+      setHasNavigated(true)
+    } else if (location.pathname === '/' && hasNavigated) {
+      // Only reset when navigating back to home after visiting another page
       
-    </>
+      // Kill all existing ScrollTriggers first
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill())
+      
+      // Scroll to top
+      window.scrollTo({ top: 0, behavior: 'instant' })
+      
+      // Simple reset - just put splash screen back
+      if (splashRef.current) {
+        gsap.set(splashRef.current, { height: '100vh' })
+      }
+      
+      // Reset hero section
+      if (heroRef.current) {
+        gsap.set(heroRef.current, { opacity: 1 })
+      }
+      
+      // Reset video and audio
+      if (videoRef.current) {
+        videoRef.current.currentTime = 0
+        videoRef.current.play().catch(console.error)
+      }
+      
+      if (audioRef.current) {
+        audioRef.current.currentTime = 0
+        audioRef.current.muted = muted
+        audioRef.current.play().catch(console.error)
+      }
+      
+      setHasNavigated(false)
+      
+      // Force a page reload to restart all animations properly
+      setTimeout(() => {
+        window.location.reload()
+      }, 100)
+    }
+  }, [location.pathname, hasNavigated, muted])
+
+  return (
+    <Routes>
+      <Route path="/watch-trailer" element={<TrailerPage />} />
+      <Route path="/watch-trailer/:arcID" element={<TrailerPage />} />
+      <Route path="/" element={
+        <>
+          <section className="relative">
+            <Header nextSection={nextSectionRef} />
+            <div ref={heroRef} className="w-screen h-screen flex justify-center items-center fixed z-10">
+              <div ref={splashRef} className="h-screen absolute inset-0 z-9999 bg-black origin-top w-screen"></div>
+              <video ref={videoRef} src="/bg-video-hero.webm" className="w-full h-full flex-1 object-cover object-center" muted loop></video>
+              <audio
+                ref={audioRef}
+                src="/infinity-castel-ost.mp3"
+                loop
+                muted={muted}
+              />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center gap-10">
+                <img ref={logoRef} src="/Infinity-castel-logo.png" alt="center-logo" className="w-115 h-110 object-fit object-center drop-shadow-2xl" />
+                <Link to='/watch-trailer/infinity-castle' ><button ref={buttonRef} className="px-5 py-3 rounded-full border-2 border-green-500 text-lg text-center text-white font-medium font-satoshi hover:bg-green-500 hover:border-white transition-colors duration-300 ease-in-out cursor-pointer">Watch the trailer</button></Link>
+              </div>
+              <HeroFooter muted={muted} toggleMute={toggleMute} nextSection={nextSectionRef} />
+            </div>
+          </section>
+
+          <section className="relative w-screen h-screen z-9 bg-black"></section>
+
+          <section ref={nextSectionRef} className="relative w-screen h-screen z-11 bg-black">
+            <ArcSection ref={firstArcRef} arcData={arcData[0]} to="/watch-trailer/infinity-castle" />
+          </section>
+          <section ref={sectionRefs[1]} className="relative w-screen h-screen z-11 bg-black">
+            <ArcSection ref={arcSectionRefs[1]} arcData={arcData[1]} to="/watch-trailer/hashira-training" />
+          </section>
+          <section ref={sectionRefs[2]} className="relative w-screen h-screen z-11 bg-black">
+            <ArcSection ref={arcSectionRefs[2]} arcData={arcData[2]} to="/watch-trailer/swordsmith-village" />
+          </section>
+          <section ref={sectionRefs[3]} className="relative w-screen h-screen z-11 bg-black">
+            <ArcSection ref={arcSectionRefs[3]} arcData={arcData[3]} to="/watch-trailer/entertainment-district" />
+          </section>
+          <section ref={sectionRefs[4]} className="relative w-screen h-screen z-11 bg-black">
+            <ArcSection ref={arcSectionRefs[4]} arcData={arcData[4]} to="/watch-trailer/mugen-train" />
+          </section>
+        </>
+      } />
+    </Routes>
   )
 }
 

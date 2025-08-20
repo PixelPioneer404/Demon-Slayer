@@ -1,6 +1,7 @@
 import { Calendar, Clapperboard } from 'lucide-react';
 import React, { forwardRef } from 'react';
 import IMDbLogo from "../assets/IMDb-logo.svg"
+import { Link } from 'react-router-dom';
 
 const ArcSection = forwardRef((props, ref) => {
     return (
@@ -16,9 +17,8 @@ const ArcSection = forwardRef((props, ref) => {
                     <p className="text-left text-white/60 font-satoshi text-xl font-medium leading-10 pr-28">
                         {props.arcData.desc}
                     </p>
-                    <div className="flex justify-start items-center gap-4 h-15">
-                        <button className="h-full px-8 border-2 border-green-500 rounded-full bg-transparent text-lg text-white font-medium font-satoshi hover:bg-green-500 cursor-pointer transition-all duration-300 ease-in-out flex justify-center items-center gap-2"><Clapperboard size={20} /> Watch Trailer</button>
-                        <button className="h-full px-5"></button>
+                    <div className="flex justify-start items-center gap-4">
+                        <Link to={props.to} ><button className="h-full py-4 px-8 border-2 border-green-500 rounded-full bg-transparent text-lg text-white font-medium font-satoshi hover:bg-green-500 cursor-pointer transition-all duration-300 ease-in-out flex justify-center items-center gap-2"><Clapperboard size={20} /> Watch Trailer</button></Link>
                     </div>
                 </div>
             </div>

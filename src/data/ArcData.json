@@ -1,37 +1,42 @@
 [
-  {
-    "name": "Infinity Castle Arc",
-    "desc": "The stage shifts into Muzan Kibutsuji's terrifying domain — the Infinity Castle, a labyrinth of endless corridors and shifting rooms ruled by the Upper Moons. As the Demon Slayer Corps launches their final assault, the Hashira and young slayers are thrust into desperate battles where every step could be their last. Unforgiving duels, unimaginable bloodshed, and the clash of ultimate wills unfold within this nightmarish fortress. The Infinity Castle Arc is the gateway to the end — where bonds are tested, legends are born, and the fate of humanity teeters on the edge of annihilation.",
-    "img": "/Infinity-castel-arc.jpg",
-    "imdb": "8.9",
-    "date": "18 / 07 / 2025"
-  },
-  {
-    "name": "Hashira Training Arc",
-    "desc": "In the calm before the final war, the Hashira summon every Demon Slayer to endure a merciless training regimen unlike anything before. From brutal endurance trials and sparring duels to relentless stamina exercises, each member of the corps is pushed beyond their breaking point. Bonds are reforged, weaknesses are shattered, and determination is tempered into unyielding steel. As Tanjiro and his comrades struggle against exhaustion and despair, their spirit is sharpened for the coming storm. The Hashira Training Arc is not a battle against demons, but against one's own limits — a crucible that will decide who can stand against Muzan's reign.",
-    "img": "/Hashira-taining-arc.jpg",
-    "imdb": "7.7",
-    "date": "12 / 05 / 2024"
-  },
-  {
-    "name": "Swordsmith Village Arc",
-    "desc": "When Tanjiro travels to the hidden Swordsmith Village to repair his broken blade, he enters a sanctuary where the future of the corps is forged in fire. But the peace is shattered when Upper Rank demons descend, determined to eradicate the village and its vital craftsmen. As chaos erupts, Tanjiro unites with the Mist Hashira and the Love Hashira, fighting through overwhelming odds and unleashing newfound strength. The battles blaze with intensity, revealing devastating techniques and unwavering sacrifice. The Swordsmith Village Arc is where tradition collides with destruction — and the flames of resolve burn brighter than steel itself.",
-    "img": "/Swordsmith-village-arc.png",
-    "imdb": "8.6",
-    "date": "09 / 04 / 2023"
-  },
-  {
-    "name": "Entertainment District Arc",
-    "desc": "Under the dazzling lights and shadows of the red-light district, a sinister darkness lurks behind every smile. Disguised in secrecy, Tanjiro, Zenitsu, and Inosuke infiltrate alongside the flamboyant Sound Hashira, Tengen Uzui, to uncover the presence of Upper Rank demons. What begins as stealth and deception erupts into one of the fiercest duels the corps has ever faced. Against Daki and Gyutaro, siblings of cruel elegance and monstrous might, every strike carries the weight of survival. The Entertainment District Arc is a clash of spectacle and carnage — where sacrifice, sound, and fury decide the fate of the night.",
-    "img": "/Entertainment-district-arc.jpg",
-    "imdb": "8.9",
-    "date": "05 / 12 / 2021"
-  },
-  {
-    "name": "Mugen Train Arc",
-    "desc": "All aboard a journey into despair as the Demon Slayer Corps join the Flame Hashira, Kyojuro Rengoku, on the mysterious Mugen Train. What seems like a simple mission quickly spirals into terror when Enmu, a Lower Rank demon, ensnares hundreds of passengers within twisted dreams. As the battle rages through endless train cars, courage is tested and hope is pushed to its limits. Rengoku's blazing spirit ignites against unstoppable darkness, leaving behind a legacy that will forever shape the corps. The Mugen Train Arc is a relentless ride of horror and heroism — where dreams blur with sacrifice on iron rails.",
-    "img": "/Mugen-tain-arc.jpg",
-    "imdb": "8.7",
-    "date": "10 / 10 / 2021"
-  }
+    {
+        "name": "Infinity Castle Arc",
+        "desc": "The stage shifts into Muzan Kibutsuji's terrifying domain — the Infinity Castle, a labyrinth of endless corridors and shifting rooms ruled by the Upper Moons. As the Demon Slayer Corps launches their final assault, the Hashira and young slayers are thrust into desperate battles where every step could be their last. Unforgiving duels, unimaginable bloodshed, and the clash of ultimate wills unfold within this nightmarish fortress. The Infinity Castle Arc is the gateway to the end — where bonds are tested, legends are born, and the fate of humanity teeters on the edge of annihilation.",
+        "img": "/Infinity-castel-arc.jpg",
+        "imdb": "8.9",
+        "date": "18 / 07 / 2025",
+        "url": "https://youtu.be/wPFeBxt7VXI?si=lvDFBd1DLaFk3iib"
+    },
+    {
+        "name": "Hashira Training Arc",
+        "desc": "In the calm before the final war, the Hashira summon every Demon Slayer to endure a merciless training regimen unlike anything before. From brutal endurance trials and sparring duels to relentless stamina exercises, each member of the corps is pushed beyond their breaking point. Bonds are reforged, weaknesses are shattered, and determination is tempered into unyielding steel. As Tanjiro and his comrades struggle against exhaustion and despair, their spirit is sharpened for the coming storm. The Hashira Training Arc is not a battle against demons, but against one's own limits — a crucible that will decide who can stand against Muzan's reign.",
+        "img": "/Hashira-taining-arc.jpg",
+        "imdb": "7.7",
+        "date": "12 / 05 / 2024",
+        "url": "https://youtu.be/PraFso1sVIc?si=bXkaZ8Pz2DzH7UCi"
+    },
+    {
+        "name": "Swordsmith Village Arc",
+        "desc": "When Tanjiro travels to the hidden Swordsmith Village to repair his broken blade, he enters a sanctuary where the future of the corps is forged in fire. But the peace is shattered when Upper Rank demons descend, determined to eradicate the village and its vital craftsmen. As chaos erupts, Tanjiro unites with the Mist Hashira and the Love Hashira, fighting through overwhelming odds and unleashing newfound strength. The battles blaze with intensity, revealing devastating techniques and unwavering sacrifice. The Swordsmith Village Arc is where tradition collides with destruction — and the flames of resolve burn brighter than steel itself.",
+        "img": "/Swordsmith-village-arc.png",
+        "imdb": "8.6",
+        "date": "09 / 04 / 2023",
+        "url": "https://youtu.be/9DhuWapDDrw?si=vWcvnnKW9TzJ_LfV"
+    },
+    {
+        "name": "Entertainment District Arc",
+        "desc": "Under the dazzling lights and shadows of the red-light district, a sinister darkness lurks behind every smile. Disguised in secrecy, Tanjiro, Zenitsu, and Inosuke infiltrate alongside the flamboyant Sound Hashira, Tengen Uzui, to uncover the presence of Upper Rank demons. What begins as stealth and deception erupts into one of the fiercest duels the corps has ever faced. Against Daki and Gyutaro, siblings of cruel elegance and monstrous might, every strike carries the weight of survival. The Entertainment District Arc is a clash of spectacle and carnage — where sacrifice, sound, and fury decide the fate of the night.",
+        "img": "/Entertainment-district-arc.jpg",
+        "imdb": "8.9",
+        "date": "05 / 12 / 2021",
+        "url": "https://youtu.be/XoJCOAU_72U?si=ACrfsKzr3GLX7uOq"
+    },
+    {
+        "name": "Mugen Train Arc",
+        "desc": "All aboard a journey into despair as the Demon Slayer Corps join the Flame Hashira, Kyojuro Rengoku, on the mysterious Mugen Train. What seems like a simple mission quickly spirals into terror when Enmu, a Lower Rank demon, ensnares hundreds of passengers within twisted dreams. As the battle rages through endless train cars, courage is tested and hope is pushed to its limits. Rengoku's blazing spirit ignites against unstoppable darkness, leaving behind a legacy that will forever shape the corps. The Mugen Train Arc is a relentless ride of horror and heroism — where dreams blur with sacrifice on iron rails.",
+        "img": "/Mugen-tain-arc.jpg",
+        "imdb": "8.7",
+        "date": "10 / 10 / 2021",
+        "url": "https://youtu.be/oMXvVF6mV8g?si=OPJOYXzyjCN01emp"
+    }
 ]
