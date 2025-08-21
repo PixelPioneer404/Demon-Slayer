@@ -8,6 +8,7 @@ import ArcSection from './components/ArcSection'
 import arcData from "./data/ArcData.json"
 import { Routes, Route, Link, useLocation } from 'react-router-dom'
 import TrailerPage from './pages/TrailerPage'
+import Menu from './components/Menu'
 gsap.registerPlugin(CustomEase, ScrollTrigger)
 
 
@@ -22,6 +23,41 @@ function App() {
   const nextSectionRef = useRef(null)
   const heroRef = useRef(null)
   const firstArcRef = useRef(null)
+
+  // Force scroll to top on page load/reload
+  useEffect(() => {
+    // Always scroll to top immediately on page load
+    window.scrollTo(0, 0)
+    
+    // Also use history.scrollRestoration to prevent browser scroll restoration
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual'
+    }
+    
+    // Reset scroll position to ensure it stays at top
+    const resetScroll = () => {
+      if (window.scrollY !== 0) {
+        window.scrollTo(0, 0)
+      }
+    }
+    
+    // Listen for any scroll attempts during initial load
+    window.addEventListener('scroll', resetScroll)
+    
+    // Clean up after a short delay to allow normal scrolling
+    const timer = setTimeout(() => {
+      window.removeEventListener('scroll', resetScroll)
+    }, 1000)
+    
+    return () => {
+      clearTimeout(timer)
+      window.removeEventListener('scroll', resetScroll)
+      // Restore default scroll restoration when component unmounts
+      if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'auto'
+      }
+    }
+  }, [])
 
   // Create refs for all arc sections (components)
   const arcSectionRefs = [
@@ -42,6 +78,7 @@ function App() {
   ]
 
   const [muted, setMuted] = useState(true)
+  const [isMenuOpen, setIsMenuOpen] = useState(null)
 
   const toggleMute = () => {
     if (audioRef.current) {
@@ -57,6 +94,24 @@ function App() {
   }
 
   useEffect(() => {
+    // Reset all element states to initial values on component mount
+    if (splashRef.current) {
+      gsap.set(splashRef.current, { height: '100vh' })
+    }
+    if (heroRef.current) {
+      gsap.set(heroRef.current, { opacity: 1 })
+    }
+    if (firstArcRef.current) {
+      gsap.set(firstArcRef.current, { opacity: 0, y: 50 })
+    }
+    
+    // Reset all arc sections to visible state
+    arcSectionRefs.forEach(ref => {
+      if (ref.current) {
+        gsap.set(ref.current, { opacity: 1, y: 0, scale: 1 })
+      }
+    })
+
     let timer;
     let splashTl;
     let heroScrollTrigger;
@@ -68,6 +123,10 @@ function App() {
     timer = setTimeout(() => {
       // Splash screen and logo animation
       if (splashRef.current && logoRef.current && buttonRef.current) {
+        // Set initial states for logo and button
+        gsap.set(logoRef.current, { opacity: 0, scale: 0.5 })
+        gsap.set(buttonRef.current, { opacity: 0 })
+        
         splashTl = gsap.timeline()
         splashTl
           .to(splashRef.current, {
@@ -76,14 +135,14 @@ function App() {
             ease: "custom",
             ease: CustomEase.create("custom", "1,0,0.2,1")
           })
-          .from(logoRef.current, {
-            opacity: 0,
-            scale: 0.5,
+          .to(logoRef.current, {
+            opacity: 1,
+            scale: 1,
             duration: 0.8,
             ease: "power2.inOut"
           }, "-=0.3")
-          .from(buttonRef.current, {
-            opacity: 0,
+          .to(buttonRef.current, {
+            opacity: 1,
             duration: 0.8,
             ease: "power2.inOut"
           }, "-=0.3")
@@ -279,37 +338,45 @@ function App() {
       setHasNavigated(true)
     } else if (location.pathname === '/' && hasNavigated) {
       // Only reset when navigating back to home after visiting another page
-      
+
       // Kill all existing ScrollTriggers first
       ScrollTrigger.getAll().forEach(trigger => trigger.kill())
-      
-      // Scroll to top
+
+      // Force scroll to top immediately
       window.scrollTo({ top: 0, behavior: 'instant' })
-      
-      // Simple reset - just put splash screen back
+
+      // Reset all elements to initial state
       if (splashRef.current) {
         gsap.set(splashRef.current, { height: '100vh' })
       }
-      
-      // Reset hero section
       if (heroRef.current) {
         gsap.set(heroRef.current, { opacity: 1 })
       }
+      if (firstArcRef.current) {
+        gsap.set(firstArcRef.current, { opacity: 0, y: 50 })
+      }
       
+      // Reset all arc sections
+      arcSectionRefs.forEach(ref => {
+        if (ref.current) {
+          gsap.set(ref.current, { opacity: 1, y: 0, scale: 1 })
+        }
+      })
+
       // Reset video and audio
       if (videoRef.current) {
         videoRef.current.currentTime = 0
         videoRef.current.play().catch(console.error)
       }
-      
+
       if (audioRef.current) {
         audioRef.current.currentTime = 0
         audioRef.current.muted = muted
         audioRef.current.play().catch(console.error)
       }
-      
+
       setHasNavigated(false)
-      
+
       // Force a page reload to restart all animations properly
       setTimeout(() => {
         window.location.reload()
@@ -323,8 +390,11 @@ function App() {
       <Route path="/watch-trailer/:arcID" element={<TrailerPage />} />
       <Route path="/" element={
         <>
+          <div className="w-screen h-screen absolute inset-0 bg-transparent">
+            <Menu isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} icSection={nextSectionRef} htSection={sectionRefs[1]} svSection={sectionRefs[2]} edSection={sectionRefs[3]} mtSection={sectionRefs[4]} />
+          </div>
           <section className="relative">
-            <Header nextSection={nextSectionRef} />
+            <Header nextSection={nextSectionRef} isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
             <div ref={heroRef} className="w-screen h-screen flex justify-center items-center fixed z-10">
               <div ref={splashRef} className="h-screen absolute inset-0 z-9999 bg-black origin-top w-screen"></div>
               <video ref={videoRef} src="/bg-video-hero.webm" className="w-full h-full flex-1 object-cover object-center" muted loop></video>

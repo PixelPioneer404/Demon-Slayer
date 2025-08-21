@@ -10,9 +10,12 @@
 @layer utilities {
 
     @keyframes up-down {
-        0%, 100% {
+
+        0%,
+        100% {
             transform: translateY(0px);
         }
+
         50% {
             transform: translateY(-10px);
         }
@@ -21,4 +24,19 @@
     .animate-up-down {
         animation: up-down 3s ease-in-out infinite;
     }
+
+    @keyframes marquee {
+        from {
+            transform: translateX(0%);
+        }
+
+        to {
+            transform: translateX(-50%);
+        }
+    }
+
+    .marquee {
+        animation: marquee 15s linear infinite;
+    }
+
 }

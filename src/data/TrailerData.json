@@ -1,27 +1,32 @@
 {
     "infinity-castle": {
         "name": "Infinity Castle Arc",
-        "url": "https://ik.imagekit.io/rajbeersaha/Demon%20Slayer%20Trailers/Demon%20Slayer%20Kimetsu%20no%20Yaiba%20Infinity%20Castle%20%20%20MAIN%20TRAILER.mp4?updatedAt=1755702360825",
+        "title": "Infinity Castle Arc",
+        "url": "/trailers/infinity-castle.mp4",
         "poster": "/posters/infinity-castel-poster.avif"
     },
     "hashira-training": {
         "name": "Hashira Training Arc",
-        "url": "https://ik.imagekit.io/rajbeersaha/Demon%20Slayer%20Trailers/Demon%20Slayer%20Kimetsu%20no%20Yaiba%20Hashira%20Training%20Arc%20%20%20OFFICIAL%20TRAILER.mp4?updatedAt=1755702374628",
+        "title": "Hashira Training Arc",
+        "url": "/trailers/hashira-training.mp4",
         "poster": "/posters/hasira-training-poster.jpg"
     },
     "swordsmith-village": {
         "name": "Swordsmith Village Arc",
-        "url": "https://ik.imagekit.io/rajbeersaha/Demon%20Slayer%20Trailers/Demon%20Slayer%20Kimetsu%20no%20Yaiba%20Swordsmith%20Village%20Arc%20%20%20OFFICIAL%20TRAILER.mp4?updatedAt=1755702359518",
+        "title": "Swordsmith Village Arc",
+        "url": "/trailers/swordsmith-village.mp4",
         "poster": "/posters/swordsmith-village-poster.jpg"
     },
     "entertainment-district": {
         "name": "Entertainment District Arc",
-        "url": "https://ik.imagekit.io/rajbeersaha/Demon%20Slayer%20Trailers/Demon%20Slayer%20Kimetsu%20no%20Yaiba%20Entertainment%20District%20Arc%20%20%20OFFICIAL%20TRAILER.mp4?updatedAt=1755702391527",
+        "title": "Entertainment District Arc",
+        "url": "/trailers/entertainment-district.mp4",
         "poster": "/posters/entertainment-district-poster.jpg"
     },
     "mugen-train": {
         "name": "Mugen Train Arc",
-        "url": "https://ik.imagekit.io/rajbeersaha/Demon%20Slayer%20Trailers/Demon%20Slayer%20-Kimetsu%20no%20Yaiba-%20The%20Movie%20Mugen%20Train%20%20%20RE-RELEASE%20TRAILER.mp4?updatedAt=1755702402962",
+        "title": "Mugen Train Arc",
+        "url": "/trailers/mugen-train.mp4",
         "poster": "/posters/mugen-train.jpg"
     }
 }
