@@ -132,7 +132,6 @@ function App() {
           .to(splashRef.current, {
             height: 0,
             duration: 0.5,
-            ease: "custom",
             ease: CustomEase.create("custom", "1,0,0.2,1")
           })
           .to(logoRef.current, {
