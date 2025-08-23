@@ -2,31 +2,31 @@
     "infinity-castle": {
         "name": "Infinity Castle Arc",
         "title": "Infinity Castle Arc",
-        "url": "/trailers/infinity-castle.mp4",
+        "url": "/trailers/infinity-castle.webm",
         "poster": "/posters/infinity-castel-poster.avif"
     },
     "hashira-training": {
         "name": "Hashira Training Arc",
         "title": "Hashira Training Arc",
-        "url": "/trailers/hashira-training.mp4",
+        "url": "/trailers/hashira-training.webm",
         "poster": "/posters/hasira-training-poster.jpg"
     },
     "swordsmith-village": {
         "name": "Swordsmith Village Arc",
         "title": "Swordsmith Village Arc",
-        "url": "/trailers/swordsmith-village.mp4",
+        "url": "/trailers/swordsmith-village.webm",
         "poster": "/posters/swordsmith-village-poster.jpg"
     },
     "entertainment-district": {
         "name": "Entertainment District Arc",
         "title": "Entertainment District Arc",
-        "url": "/trailers/entertainment-district.mp4",
+        "url": "/trailers/entertainment-district.webm",
         "poster": "/posters/entertainment-district-poster.jpg"
     },
     "mugen-train": {
         "name": "Mugen Train Arc",
         "title": "Mugen Train Arc",
-        "url": "/trailers/mugen-train.mp4",
+        "url": "/trailers/mugen-train.webm",
         "poster": "/posters/mugen-train.jpg"
     }
 }

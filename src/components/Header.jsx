@@ -89,10 +89,10 @@ const Header = (props) => {
                 src={menu}
                 className="hover:scale-105 cursor-pointer tranition-all duration-300 ease-in-out w-8 aspect-square"
             />
-            <div className="flex justify-center items-start gap-3 h-11">
+            <div className="flex justify-center items-start gap-4 h-11">
                 <div onClick={toggleWhereToWatch} className="relative w-40 h-12 flex justify-center items-center bg-translarent cursor-pointer text-white border-2 border-white font-satoshi font-medium text-base rounded-4xl group">
-                    <p className="text-center hover:scale-105 transition-all duration-300 ease-in-out">Where to watch</p>
-                    <div ref={whereToWatchRef} className="absolute top-14 left-0 w-full h-full flex justify-stary items-center flex-col gap-2">
+                    <p className="w-40 h-full flex justify-center items-center text-center hover:scale-105 transition-all duration-300 ease-in-out">Where to watch</p>
+                    <div ref={whereToWatchRef} className={`absolute top-14 left-0 w-full ${isWTWOpen ? "pointer-events-auto" : "pointer-events-none"} flex justify-start items-center flex-col gap-2`}>
                         <a href="https://www.crunchyroll.com/series/GY5P48XEY/demon-slayer-kimetsu-no-yaiba?utm_campaign=media_actions&utm_medium=deep_link&utm_source=google" target='_blank'>
                             <button
                                 ref={crunchyrollRef}
@@ -122,7 +122,7 @@ const Header = (props) => {
                         </a>
                     </div>
                 </div>
-                <button onClick={handleScrollToNext} className="px-5 h-full bg-green-500 border-2 border-green-500 rounded-full cursor-pointer text-black text-base font-medium font-satoshi hover:scale-105 transition-transform duration-300 ease-in-out">Explore the franchise</button>
+                <button onClick={handleScrollToNext} className="px-5 h-12 bg-green-500 border-2 border-green-500 rounded-full cursor-pointer text-black text-base font-medium font-satoshi hover:scale-105 transition-transform duration-300 ease-in-out">Explore the franchise</button>
             </div>
         </div>
     );

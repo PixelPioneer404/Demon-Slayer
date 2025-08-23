@@ -9,6 +9,7 @@ import arcData from "./data/ArcData.json"
 import { Routes, Route, Link, useLocation } from 'react-router-dom'
 import TrailerPage from './pages/TrailerPage'
 import Menu from './components/Menu'
+import Footer from './components/Footer'
 gsap.registerPlugin(CustomEase, ScrollTrigger)
 
 
@@ -28,27 +29,27 @@ function App() {
   useEffect(() => {
     // Always scroll to top immediately on page load
     window.scrollTo(0, 0)
-    
+
     // Also use history.scrollRestoration to prevent browser scroll restoration
     if ('scrollRestoration' in history) {
       history.scrollRestoration = 'manual'
     }
-    
+
     // Reset scroll position to ensure it stays at top
     const resetScroll = () => {
       if (window.scrollY !== 0) {
         window.scrollTo(0, 0)
       }
     }
-    
+
     // Listen for any scroll attempts during initial load
     window.addEventListener('scroll', resetScroll)
-    
+
     // Clean up after a short delay to allow normal scrolling
     const timer = setTimeout(() => {
       window.removeEventListener('scroll', resetScroll)
     }, 1000)
-    
+
     return () => {
       clearTimeout(timer)
       window.removeEventListener('scroll', resetScroll)
@@ -74,8 +75,8 @@ function App() {
     useRef(null),   // Second section
     useRef(null),   // Third section
     useRef(null),   // Fourth section
-    useRef(null),   // Fifth section
   ]
+  const lastSectionRef = useRef(null)
 
   const [muted, setMuted] = useState(true)
   const [isMenuOpen, setIsMenuOpen] = useState(null)
@@ -104,7 +105,7 @@ function App() {
     if (firstArcRef.current) {
       gsap.set(firstArcRef.current, { opacity: 0, y: 50 })
     }
-    
+
     // Reset all arc sections to visible state
     arcSectionRefs.forEach(ref => {
       if (ref.current) {
@@ -126,7 +127,7 @@ function App() {
         // Set initial states for logo and button
         gsap.set(logoRef.current, { opacity: 0, scale: 0.5 })
         gsap.set(buttonRef.current, { opacity: 0 })
-        
+
         splashTl = gsap.timeline()
         splashTl
           .to(splashRef.current, {
@@ -354,7 +355,7 @@ function App() {
       if (firstArcRef.current) {
         gsap.set(firstArcRef.current, { opacity: 0, y: 50 })
       }
-      
+
       // Reset all arc sections
       arcSectionRefs.forEach(ref => {
         if (ref.current) {
@@ -390,7 +391,7 @@ function App() {
       <Route path="/" element={
         <>
           <div className="w-screen h-screen absolute inset-0 bg-transparent">
-            <Menu isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} icSection={nextSectionRef} htSection={sectionRefs[1]} svSection={sectionRefs[2]} edSection={sectionRefs[3]} mtSection={sectionRefs[4]} />
+            <Menu heroSection={heroRef} isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} icSection={nextSectionRef} htSection={sectionRefs[1]} svSection={sectionRefs[2]} edSection={sectionRefs[3]} mtSection={lastSectionRef} />
           </div>
           <section className="relative">
             <Header nextSection={nextSectionRef} isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
@@ -405,7 +406,7 @@ function App() {
               />
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center gap-10">
                 <img ref={logoRef} src="/Infinity-castel-logo.png" alt="center-logo" className="w-115 h-110 object-fit object-center drop-shadow-2xl" />
-                <Link to='/watch-trailer/infinity-castle' ><button ref={buttonRef} className="px-5 py-3 rounded-full border-2 border-green-500 text-lg text-center text-white font-medium font-satoshi hover:bg-green-500 hover:border-white transition-colors duration-300 ease-in-out cursor-pointer">Watch the trailer</button></Link>
+                <Link to='/watch-trailer/infinity-castle' ><button ref={buttonRef} className="px-5 py-3 rounded-full border-3 border-green-500 text-lg text-center text-white font-semibold font-satoshi hover:bg-green-500 hover:border-white transition-colors duration-300 ease-in-out cursor-pointer">Watch the trailer</button></Link>
               </div>
               <HeroFooter muted={muted} toggleMute={toggleMute} nextSection={nextSectionRef} />
             </div>
@@ -425,8 +426,11 @@ function App() {
           <section ref={sectionRefs[3]} className="relative w-screen h-screen z-11 bg-black">
             <ArcSection ref={arcSectionRefs[3]} arcData={arcData[3]} to="/watch-trailer/entertainment-district" />
           </section>
-          <section ref={sectionRefs[4]} className="relative w-screen h-screen z-11 bg-black">
-            <ArcSection ref={arcSectionRefs[4]} arcData={arcData[4]} to="/watch-trailer/mugen-train" />
+          <section ref={lastSectionRef} className="relative w-screen h-screen z-11 bg-black">
+            <ArcSection arcData={arcData[4]} to="/watch-trailer/mugen-train" />
+          </section>
+          <section className="relative w-screen h-[50vh] z-11 bg-black">
+            <Footer />
           </section>
         </>
       } />

@@ -71,9 +71,19 @@ const Menu = (props) => {
     }, [props.isMenuOpen])
 
     const handleScrollToNext = (key) => {
-        if (key && key.current) {
+        if (key === props.heroSection) {
+            // Special case for hero section - scroll to top since it's fixed
             props.setIsMenuOpen(false)
             setTimeout(() => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                })
+            }, 300)
+        } else if (key && key.current) {
+            props.setIsMenuOpen(false)
+            setTimeout(() => {
+                console.log(key.current)
                 key.current.scrollIntoView({
                     behavior: "smooth"
                 })
@@ -98,7 +108,7 @@ const Menu = (props) => {
                 className="absolute top-30 left-30 cursor-pointer hover:rotate-90 transition-all duration-300 ease-in-out">
                 <X size={60} color='white' />
             </div>
-            <img ref={logoRef} src={logo} alt="logo" className="absolute top-30 left-1/2 -translate-x-1/2 h-45 object-center object-cover" />
+            <img onClick={() => { handleScrollToNext(props.heroSection) }} ref={logoRef} src={logo} alt="logo" className="cursor-pointer absolute top-30 left-1/2 -translate-x-1/2 h-45 object-center object-cover" />
             <div ref={flowingMenuRef} className="flex-1 relative mt-60 w-full h-1/2 p-30">
                 <FlowingMenu items={navItems} />
             </div>

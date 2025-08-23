@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const ArcSection = forwardRef((props, ref) => {
     return (
-        <div ref={ref} className="absolute inset-0 w-full h-full flex justify-items-center items-center p-20 px-50 pt-25 z-12">
+        <div ref={ref} className={`absolute inset-0 w-full h-full flex justify-items-center items-center p-20 px-50 pt-25 z-12`}>
             <div className="w-full h-full flex justify-center items-center gap-6">
                 <img src={props.arcData.img} alt={props.arcData.name} className="h-full object-cover object-center" />
                 <div className="h-full flex-1 flex flex-col gap-15 p-6 pt-0 justify-start items-start">
