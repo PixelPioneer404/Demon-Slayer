@@ -1,10 +1,12 @@
-import React, { useEffect, useRef, forwardRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import logo from '/Demon-slayer-logo.png'
 import FlowingMenu from './FlowingMenu';
 import { X } from 'lucide-react';
 
 const Menu = (props) => {
+
+    let currentYear = new Date().getFullYear();
 
     const menuRef = useRef(null)
     const iconRef = useRef(null)
@@ -112,6 +114,9 @@ const Menu = (props) => {
             <div ref={flowingMenuRef} className="flex-1 relative mt-60 w-full h-1/2 p-30">
                 <FlowingMenu items={navItems} />
             </div>
+            <p className="absolute bottom-4 left-1/2 -translate-x-1/2 text-sm text-white font-satoshi font-medium">
+                © {currentYear} | Made with ❤️ by Rajbeer Saha
+            </p>
         </div>
     );
 };
